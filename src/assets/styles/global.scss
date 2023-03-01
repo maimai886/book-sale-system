@@ -1,0 +1,11 @@
+$color:#eee;
+body{
+    background-color: $color;
+
+    //文字選択を禁止する
+    user-select: none;
+}
+img{
+    //イメージドラッグを禁止する
+    -webkit-user-drag: none;
+}
