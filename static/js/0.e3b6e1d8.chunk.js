@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkbook_sale_system=self.webpackChunkbook_sale_system||[]).push([[0],{5e3:function(e,s,a){a.r(s);var n=a(184);s.default=function(){return(0,n.jsx)("div",{className:"page0301",children:(0,n.jsx)("p",{children:"Page03"})})}}}]);
-//# sourceMappingURL=0.e3b6e1d8.chunk.js.map
