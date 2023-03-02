@@ -56,7 +56,7 @@ const onChange: TableProps<PurchaseDetailData>['onChange'] = (pagination, filter
     console.log('params', pagination, filters, sorter, extra);
 };
 
-const Page05 = () => {
+const Page05: React.FC  = () => {
 
     //状態定義
 

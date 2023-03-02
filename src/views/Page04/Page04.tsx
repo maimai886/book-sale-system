@@ -3,7 +3,6 @@ import type { ColumnsType, TableProps } from 'antd/es/table';
 import { useEffect, useState } from "react"
 import TableForm from "src/components/TableForm"
 import { purchaseInfoApi } from 'src/request';
-import request from 'src/request/request';
 import { PurchaseDetailData } from './page04.interface';
 import style from './page04.module.scss'
 
@@ -57,7 +56,7 @@ const onChange: TableProps<PurchaseDetailData >['onChange'] = (pagination, filte
     console.log('params', pagination, filters, sorter, extra);
 };
 
-const Page04 = () => {
+const Page04: React.FC  = () => {
 
     //状態定義
     
