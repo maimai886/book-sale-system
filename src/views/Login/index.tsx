@@ -35,29 +35,52 @@ const Login = () => {
 
     //新規処理
     async function registerAction() {
-        await registerApi(registerInfo).then((res: any) => {
-            console.log(123, res)
-            if (res.code == 0) {
-                setIsSignUp(!isSignUp);
-                setRegisterInfo(userInfoData)
-            }
 
-            console.log(res)
-        }).catch(err => {
-            console.log(err)
-        })
+        const result = dataCheck('register')
+
+        if (Object.keys(result).length == 0) {
+
+            await registerApi(registerInfo).then((res: any) => {
+                console.log(123, res)
+                if (res.code == 0) {
+                    setIsSignUp(!isSignUp);
+                    setRegisterInfo(userInfoData)
+                }
+
+                console.log(res)
+            }).catch(err => {
+                console.log(err)
+            })
+
+        } else {
+            message.open({
+                type: 'warning',
+                content: `${Object.values(result)}`,
+            });
+        }
+
     }
     //登録処理
     async function loginAction() {
-        await LoginApi(loginInfo).then((res: any) => {
-            console.log(res)
-            if (res.code == 0) {
-                navigation('/page01')
-                localStorage.setItem('token', res.token)
-            }
-        }).catch(err => {
-            console.log(err)
-        })
+
+        const result = dataCheck('login')
+
+        if (Object.keys(result).length == 0) {
+            await LoginApi(loginInfo).then((res: any) => {
+                console.log(res)
+                if (res.code == 0) {
+                    navigation('/page01')
+                    localStorage.setItem('token', res.token)
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        } else {
+            message.open({
+                type: 'warning',
+                content: `${Object.values(result)}`,
+            });
+        }
     }
 
     //アカウント入力処理
@@ -124,10 +147,47 @@ const Login = () => {
 
     }
 
-    function custom():void {
+    function custom(): void {
         navigation('/page01')
-        localStorage.setItem('token','custom')
+        localStorage.setItem('token', 'custom')
     }
+
+    //入力チェック
+    function dataCheck(type: string): { [key: string]: string; } {
+        const errors: { [key: string]: string } = {};
+
+        if (type == 'login') {
+
+            if (loginInfo.userInfo.userName == null || loginInfo.userInfo.userName == '') {
+                errors.userName = 'アカウント入力してください'
+            }
+
+            if (loginInfo.userInfo.password == null || loginInfo.userInfo.password == '') {
+                errors.password = 'パスワード入力してください'
+
+            }
+
+        } else {
+
+            if (registerInfo.userInfo.userName == null || registerInfo.userInfo.userName == '') {
+                errors.userName = 'アカウント入力してください'
+            }
+
+            if (registerInfo.userInfo.password == null || registerInfo.userInfo.password == '') {
+                errors.password = 'パスワード入力してください'
+
+            }
+
+            const emailRegex = /\S+@\S+\.\S+/;
+            if(!emailRegex.test(registerInfo.userInfo.mail)){
+                errors.password = '正しいメール入力してください'
+            }
+
+        }
+        return errors
+    }
+
+
     /**
      * 監視定義
      */

@@ -4,16 +4,18 @@ export interface UserInfoData {
     userInfo: {
         userName: string,
         password: string,
-        mail:string,
+        mail: string,
     },
-    token: string
+    token: string,
+    error: Object
 }
-export const userInfoData:UserInfoData ={
+export const userInfoData: UserInfoData = {
     auth: [''],
     userInfo: {
         userName: '',
         password: '',
-        mail:'',
+        mail: '',
     },
-    token: ''
+    token: '',
+    error: {}
 }
