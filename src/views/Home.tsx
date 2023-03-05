@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BarChartOutlined, DesktopOutlined, DollarOutlined, FileOutlined, LaptopOutlined, LogoutOutlined, MenuOutlined, MoneyCollectOutlined, NotificationOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { BarChartOutlined, BulbOutlined, DesktopOutlined, DollarOutlined, FileOutlined, LaptopOutlined, LogoutOutlined, MenuOutlined, MoneyCollectOutlined, NotificationOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, MenuProps, Tooltip } from 'antd';
 import { Layout, Menu, theme } from 'antd';
 import SideMenu from '../components/MainMenu'
@@ -42,9 +42,9 @@ const App: React.FC = () => {
       icon: <FileOutlined />,
     },
     {
-      label: 'ユーザー',
+      label: '問い合わせ',
       key: '/page03',
-      icon: <UserOutlined />,
+      icon: <BulbOutlined />,
     },
     {
       label: '入荷明細',

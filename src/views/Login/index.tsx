@@ -5,6 +5,8 @@ import style from './login.module.scss';
 import { LoginApi, registerApi } from '../../request'
 import { message } from 'antd';
 import { userInfoData } from './login.interface';
+import { useDispatch } from 'react-redux';
+import userStatus from '../../store/userData/index'
 
 
 const Login = () => {
@@ -24,6 +26,8 @@ const Login = () => {
     //新規会員
     const [registerInfo, setRegisterInfo] = useState(userInfoData);
 
+    //redux
+    const dispatch = useDispatch();
 
     /**
      * 関数定義
@@ -71,6 +75,7 @@ const Login = () => {
                 if (res.code == 0) {
                     navigation('/page01')
                     localStorage.setItem('token', res.token)
+                    dispatch({ type: 'userNameToRedux', val: loginInfo.userInfo.userName });
                 }
             }).catch(err => {
                 console.log(err)
@@ -149,7 +154,7 @@ const Login = () => {
 
     function custom(): void {
         navigation('/page01')
-        localStorage.setItem('token', 'custom')
+        //localStorage.setItem('token', 'custom')
     }
 
     //入力チェック
@@ -179,7 +184,7 @@ const Login = () => {
             }
 
             const emailRegex = /\S+@\S+\.\S+/;
-            if(!emailRegex.test(registerInfo.userInfo.mail)){
+            if (!emailRegex.test(registerInfo.userInfo.mail)) {
                 errors.password = '正しいメール入力してください'
             }
 

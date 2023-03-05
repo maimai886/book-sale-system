@@ -14,6 +14,10 @@ export const bookInfoApi = (data: any) => request({ method: 'post', url: '/api/v
 
 export const itemInfoApi = (data: any) => request({ method: 'post', url: '/api/v1/user/itemInfo', data });
 
+/**
+ * Page03
+ */
+export const userInfoApi = (data: any) => request({ method: 'post', url: '/api/v1/user/userInfo', data });
 
 /**
  * Page04

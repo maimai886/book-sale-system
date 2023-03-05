@@ -2,10 +2,12 @@ import { combineReducers, legacy_createStore,compose, applyMiddleware } from 're
 import reduxThunk from 'redux-thunk';
 import numStatusReducer from './numStatus/reducer';
 import mobileDataReducer from './mobileData/reducer';
+import userDataReducer from './userData/reducer';
 
 const reducers = combineReducers({
     numStatusReducer,
     mobileDataReducer,
+    userDataReducer,
 })
 //状態管理作成
 //const store = legacy_createStore(reducers,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
