@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, InputNumber } from 'antd';
+import { Button, Form, Input, InputNumber, Modal } from 'antd';
 import style from './page03.module.scss'
 import { userInfoApi } from 'src/request';
 import { useSelector } from 'react-redux';
 import { UserInfoData, userInfoData } from './page04.interface'
+import { CoffeeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 const layout = {
     labelCol: { span: 8 },
@@ -18,11 +19,6 @@ const validateMessages = {
         password: '${label} is not a valid password!',
     }
 };
-/* eslint-enable no-template-curly-in-string */
-const onFinish = (values: any) => {
-    console.log(values);
-};
-
 
 const Page03: React.FC = () => {
     /**
@@ -39,10 +35,19 @@ const Page03: React.FC = () => {
     //ユーザー資料
     const [userInfo, setUserInfo] = useState<any>(userInfoData)
 
+    //form状態
     const [form] = Form.useForm();
+
+    //dialog
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    //送信結果
+    const [send, setSend] = useState(false)
+
     /**
      * 関数定義
      */
+    //ユーザー資料取得処理
     async function getUserInfo(params: string) {
 
 
@@ -51,9 +56,15 @@ const Page03: React.FC = () => {
 
         const { data } = await userInfoApi(userInfo);
 
-        setUserInfo({ ...userInfo, mail: data.mail});
+        setUserInfo({ ...userInfo, mail: data.mail });
 
     }
+
+    /* eslint-enable no-template-curly-in-string */
+    const onFinish = (values: any) => {
+        console.log(values);
+        setIsModalOpen(true);
+    };
 
     /**
      * 監視定義
@@ -66,16 +77,17 @@ const Page03: React.FC = () => {
         console.log(userInfo);
         form.setFieldsValue({
             user: {
-              name: userName,
-              mail: userInfo.mail}
-            })
+                name: userName,
+                mail: userInfo.mail
+            }
+        })
     }, [userInfo]);
 
-    
+
 
     return (
         <div className={style.main}>
-            <Form
+            {!send && <Form
                 {...layout}
                 name="nest-messages"
                 onFinish={onFinish}
@@ -101,17 +113,33 @@ const Page03: React.FC = () => {
                     <Input type='number' />
                 </Form.Item>
 
-                <Form.Item name={['user', 'memo']} label="問い合わせ内容">
+                <Form.Item name={['user', 'memo']} label="問い合わせ内容" rules={[{ required: true }]}>
                     <Input.TextArea />
                 </Form.Item>
 
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" htmlType="submit" >
                         Submit
                     </Button>
+                    <Modal title="確認" open={isModalOpen} onOk={() => {
+                        setIsModalOpen(false)
+                        setSend(true)
+                    }} onCancel={(() => {
+                        setIsModalOpen(false);
+                    })}>
+                        <p>問い合わせを送信しますか？</p>
+                    </Modal>
                 </Form.Item>
 
-            </Form>
+            </Form>}
+            {send &&
+
+                <div className={style.sendMessage}>
+                    <div >
+                        <ThunderboltOutlined style={{ fontSize:100 ,color:'#3472ff'}} />
+                    </div>
+                    送信完了しました！
+                </div>}
         </div>
     );
 }
