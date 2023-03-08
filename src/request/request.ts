@@ -6,7 +6,7 @@ import { message as messageApi } from 'antd';
  * 創建axios實例
  */
 const ENV = process.env.NODE_ENV;
-const host = ENV === 'development' ? 'http://127.0.0.1:3000' : 'http://54.244.89.138:3000';
+const host = ENV === 'development' ? 'http://127.0.0.1:3000' : 'http://35.77.212.217:3000';
 const service = axios.create({
     baseURL: host,
     timeout: 3000,
