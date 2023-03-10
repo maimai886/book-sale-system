@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Input, InputNumber, Popconfirm, Table, Tooltip, Typography } from 'antd';
+import { Button, Form, Input, InputNumber, Popconfirm, Table, Tooltip, Typography } from 'antd';
 import Search from 'antd/es/input/Search';
 import style from './page02.module.scss';
 import { bookInfoApi, itemInfoApi } from 'src/request';
@@ -136,7 +136,7 @@ const Page02: React.FC = () => {
             editable: true,
         },
         {
-            title: '操作',
+            title: '詳細編集',
             dataIndex: 'operation',
             render: (_: any, record: Item) => {
                 const editable = isEditing(record);
@@ -288,14 +288,32 @@ const Page02: React.FC = () => {
                     onCancel={() => { setDialogDetail({ ...dialogDetail, show: false }) }} />
             }
 
-            {//検索Bar
-                <Search
-                    className={style.searchbar}
-                    placeholder="書籍名を入力してください"
-                    allowClear
-                    onChange={(e) => setSearchText(e.target.value)}
-                    onSearch={onSearch} />
+            {
+                <div className={style.topCol}>
+                    <Search
+                        className={style.searchbar}
+                        placeholder="書籍名を入力してください"
+                        allowClear
+                        onChange={(e) => setSearchText(e.target.value)}
+                        onSearch={onSearch} />
+
+                    <Button type="primary" danger className={style.actionButton} >
+                        作成
+                    </Button>
+
+                    <Button type="primary" danger className={style.actionButton} disabled={!(selectedRowKeys.length > 0)}>削除</Button>
+
+                    <Button type="dashed" danger className={style.actionButton} disabled={!(selectedRowKeys.length > 0)}>
+                        出荷
+                    </Button>
+
+                    <Button type="dashed" danger className={style.actionButton} disabled={!(selectedRowKeys.length > 0)}>
+                        入荷
+                    </Button>
+
+                </div>
             }
+
 
             <Form form={form} component={false}>
                 <Table

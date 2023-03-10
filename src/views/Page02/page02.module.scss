@@ -1,10 +1,20 @@
 .main {
 	height: 100%;
 
-	.searchbar {
-		width: 30%;
-		min-width: 200px;
-		padding: 10px;
+	.topCol {
+		display: flex;
+		justify-content: start;
+		align-items: center;
+		.searchbar {
+			width: 30%;
+			min-width: 200px;
+			margin: 10px;
+		}
+		.actionButton{
+			margin-left: 10px;
+			
+		}
+
 	}
 
 	.tableStyle {
